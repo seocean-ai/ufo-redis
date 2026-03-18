@@ -24,9 +24,9 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "500m"
-          envFrom:
-            - secretRef:
-                name: ufo-redis-env
+#          envFrom:
+#            - secretRef:
+#                name: ufo-redis-env
           readinessProbe:
             httpGet:
               path: /
