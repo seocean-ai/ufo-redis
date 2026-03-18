@@ -1,0 +1,41 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: ufo-redis 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ufo-redis
+  template:
+    metadata:
+      labels:
+        app: ufo-redis 
+    spec:
+      containers:
+        - name: ufo-redis 
+          image: DOCKER_IMAGE
+          ports:
+          - containerPort: 6379
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "800m"
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+          envFrom:
+            - secretRef:
+                name: ufo-redis-env
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 1337
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 1337
+            initialDelaySeconds: 60
+            periodSeconds: 30
