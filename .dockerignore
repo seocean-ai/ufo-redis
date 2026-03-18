@@ -16,5 +16,6 @@ build
 .idea
 *.swp
 *.swo
+*.bak
 *~
 
